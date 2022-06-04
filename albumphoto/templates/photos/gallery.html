@@ -1,0 +1,96 @@
+<html lang="en">
+<head>
+          <meta charset="UTF-8">
+          <meta http-equiv="X-UA-Compatible" content="IE=edge">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <!-- CSS only -->
+          <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+
+          <title>Document</title>
+
+          <style>
+                    .img-tuhmbail{
+                              height: 200px;
+                              object-fit: cover;
+                    
+                    }
+                    .category{
+                              text-decoration: none;
+                              color: black;
+                              
+                    }
+                    .category:hover{
+                      color: #ff7200;
+                      
+                    }
+                    .all{
+                      text-decoration: none;
+                      color: black;
+                      cursor: pointer;
+                    }
+                    .all:hover{
+                      color: #ff7200;
+                     
+
+                    }
+          </style>
+</head>
+<body class="md-5">
+          <div class="container mt-5">
+                    <!-- start row -->
+                    <div class="row">
+                              <!-- start navar div -->
+                              <div class="col-md-3">
+                                        <div class="card">
+                                                  <div class="card-header">
+                                                    Categories
+                                                  </div>
+                                                  <ul class="list-group list-group-flush">
+                                                    <li class="list-group-item"><a href="{% url 'gallery' %}" class="all">All</a></li>
+                                                  
+                                                    {% for category in categories %}
+                                                    <li class="list-group-item"><a href="{% url 'gallery' %}?category={{category.name}}" class="category">{{category.name}}</a></li>
+
+                                                    {% endfor %}
+                                                    
+                                                    <a href="{% url 'add-page' %}" class="btn btn-dark btn-block btn-sm m-1">Add Photo</a>
+                                                    
+                                                  </ul>
+                                                </div>
+                              <!-- end navar div -->
+                              </div>
+
+                              <!-- start gallery div -->
+                              <div class="col-md-9">
+                                <div>
+                                  <h3>{{photo_count}} |Post Created by users</h3>
+                                  <hr>
+                                </div>
+                                        <!-- start row -->
+                                        <div class="row">
+                                          {% for photo in photos %}
+                                            <div class="col-md-4">
+                                                  <div><div class="card" >
+                                                            <img src="{{photo.image.url}}" class="img-tuhmbail" alt="...">
+                                                            <div class="card-body">
+                                                              <small>Category:{{photo.category.name}}</small>
+                                                              <samp>{{photo.created|timesince}} ago</samp>
+                                                            
+                                                            </div>
+                                                            <a href="{% url 'photo-page' photo.id %}" class="btn btn-outline-dark btn-sm m-1">View</a>
+                                                          </div>
+                                                  </div>
+                                                 </div>
+                                                 {% endfor %}
+                                        </div>
+                                        <!-- end row -->
+
+
+                              </div>
+                              <!-- end gallery div -->
+                    </div>
+                    <!-- end row -->
+          </div>
+          
+</body>
+</html>
